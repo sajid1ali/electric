@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electricity Bill Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: black;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: #e9f7ef;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Electricity Bill Calculator</h2>
+    <form id="billForm">
+
+      <label for="previousReading">Previous Reading:</label>
+      <input type="number" id="previousReading" placeholder="Enter previous reading" required>
+
+      <label for="currentReading">Current Reading:</label>
+      <input type="number" id="currentReading" placeholder="Enter current reading" required>
+
+      <button type="button" onclick="calculateBill()">Calculate Bill</button>
+    </form>
+    <div class="result" id="result" style="display: none;"></div>
+  </div>
+
+  <script>
+    function calculateBill() {
+      const previousReading = parseFloat(document.getElementById('previousReading').value);
+      const currentReading = parseFloat(document.getElementById('currentReading').value);
+      const ratePerUnit = 7; // You can change the rate here
+
+      if (currentReading < previousReading) {
+        alert('Current reading cannot be less than the previous reading!');
+        return;
+      }
+
+      const unitsConsumed = currentReading - previousReading;
+      const billAmount = unitsConsumed * ratePerUnit;
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `
+        <h3>Bill Details of new renter </h3>
+        <p><strong>Units Consumed:</strong> ${unitsConsumed}</p>
+        <p><strong>Bill Amount:</strong> ₹${billAmount}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
